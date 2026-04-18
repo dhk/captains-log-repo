@@ -35,10 +35,10 @@ The test: *Would this be interesting to read in 6 months?* If yes, log it. If no
 ## Log File Structure
 
 ### File layout
-===
+```
 captains-log/
   YYYY-MM-DD.md       # One file per day
-===
+```
 
 Location depends on config (see First-Run Setup).
 
@@ -46,7 +46,7 @@ Location depends on config (see First-Run Setup).
 
 Each day file has two sections. The Summary is manager-readable. The Raw Log is the timestamped record.
 
-===markdown
+``` markdown
 # Captain's Log — YYYY-MM-DD
 **Repo:** [repo name]  **Branch:** [branch name]  **Ticket:** [if detected]
 
@@ -75,7 +75,7 @@ Each day file has two sections. The Summary is manager-readable. The Raw Log is 
 [2-4 sentences max. Lead with the signal.]
 
 ---
-===
+```
 
 ---
 
@@ -97,9 +97,9 @@ Each day file has two sections. The Summary is manager-readable. The Raw Log is 
 
 On activation, attempt to detect the current git branch:
 
-===bash
+```bash
 git branch --show-current
-===
+```
 
 **If successful:** Parse branch name for ticket reference using pattern `[A-Z]{2,3}-\d{1,4}` (e.g. `AA-1141`, `ANA-42`). Convention is `TICKET-title-words` — ticket prefix auto-populates the Context field on every entry. No need to ask.
 
@@ -145,10 +145,10 @@ If yes, run the demo flow (see Demo Commands below).
 
 Write config to `~/.captains-log-config`:
 
-===
+```
 location=global           # or: per-repo, custom
 path=~/Documents/captains-log   # omit for per-repo
-===
+```
 
 Never ask again. To reconfigure: *"reconfigure captain's log."*
 
