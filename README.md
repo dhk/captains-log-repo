@@ -133,7 +133,7 @@ Run `captains log demo` from any Claude session to browse them interactively.
 
 ## File Structure
 
-===
+```
 captains-log/
 ├── README.md
 ├── install.sh
@@ -157,7 +157,7 @@ captains-log/
         ├── day-05-sea-creatures-birds.md
         ├── day-06-land-animals-humans.md
         └── day-07-rest.md
-===
+```
 
 ---
 
