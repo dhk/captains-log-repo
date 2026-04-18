@@ -1,0 +1,7 @@
+{
+  "name": "captains-log",
+  "description": "Passive session note-taker that observes working sessions and records structured log entries to a repo file",
+  "author": {
+    "name": "Dave Holmes-Kinsella"
+  }
+}
