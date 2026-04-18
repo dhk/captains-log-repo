@@ -70,7 +70,7 @@ Each day file has two sections. The Summary is manager-readable. The Raw Log is 
 
 ### HH:MM — [Entry Title]
 **Context:** [work stream, ticket, KR, or project — if applicable]
-**Type:** `aha` | `insight` | `decision` | `opened` | `closed` | `observation` | `context-file`
+**Type:** `aha` | `insight` | `thought` | `decision` | `opened` | `closed` | `observation` | `context-file`
 
 [2-4 sentences max. Lead with the signal.]
 
@@ -85,6 +85,7 @@ Each day file has two sections. The Summary is manager-readable. The Raw Log is 
 |------|---------|
 | `aha` | Something technical that clicked — a new understanding |
 | `insight` | A business or strategic implication worth preserving |
+| `thought` | A half-formed idea or hypothesis worth preserving — not yet a decision, not yet an insight, but worth capturing before it evaporates |
 | `decision` | A fork was reached and a path was chosen |
 | `opened` | A problem, question, or unknown emerged |
 | `closed` | A problem, question, or unknown was resolved |
