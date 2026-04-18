@@ -37,7 +37,7 @@ The test: *Would this be interesting to read in 6 months?* If yes, log it. If no
 ### File layout
 ```
 captains-log/
-  YYYY-MM-DD.md       # One file per day
+  captains-log-YYYY-MM-DD.md       # One file per day
 ```
 
 Location depends on config (see First-Run Setup).

@@ -101,13 +101,13 @@ Seven days of reconstructed working notes from Linus Torvalds building Git from 
 
 | File | Day | Event |
 |------|-----|-------|
-| `2005-04-07.md` | Day 1 | Initial commit. Object model locked. Self-hosting achieved. |
-| `2005-04-08.md` | Day 2 | Index and three-space model. zlib compression. |
-| `2005-04-09.md` | Day 3 | Refs and HEAD. Distributed design confirmed. |
-| `2005-04-10.md` | Day 4 | Plumbing/porcelain split named. First porcelain scripts. |
-| `2005-04-11.md` | Day 5 | Merge designed. Three-way algorithm. Multi-parent commits. |
-| `2005-04-14.md` | Day 6 | `.git` rename. `git-` prefix. rsync fetch. Kernel-ready. |
-| `2005-04-16.md` | Day 7 | Linux kernel commit. 6.7M lines. Original problem closed. |
+| `captains-log-2005-04-07.md` | Day 1 | Initial commit. Object model locked. Self-hosting achieved. |
+| `captains-log-2005-04-08.md` | Day 2 | Index and three-space model. zlib compression. |
+| `captains-log-2005-04-09.md` | Day 3 | Refs and HEAD. Distributed design confirmed. |
+| `captains-log-2005-04-10.md` | Day 4 | Plumbing/porcelain split named. First porcelain scripts. |
+| `captains-log-2005-04-11.md` | Day 5 | Merge designed. Three-way algorithm. Multi-parent commits. |
+| `captains-log-2005-04-14.md` | Day 6 | `.git` rename. `git-` prefix. rsync fetch. Kernel-ready. |
+| `captains-log-2005-04-16.md` | Day 7 | Linux kernel commit. 6.7M lines. Original problem closed. |
 
 ### `demo/genesis/` — The Seven Days of Creation as an Engineering Build
 
@@ -142,13 +142,13 @@ captains-log/
 │       └── SKILL.md          # The skill definition
 └── demo/
     ├── git-1.0/              # Git creation logs, April 2005
-    │   ├── 2005-04-07.md
-    │   ├── 2005-04-08.md
-    │   ├── 2005-04-09.md
-    │   ├── 2005-04-10.md
-    │   ├── 2005-04-11.md
-    │   ├── 2005-04-14.md
-    │   └── 2005-04-16.md
+    │   ├── captains-log-2005-04-07.md
+    │   ├── captains-log-2005-04-08.md
+    │   ├── captains-log-2005-04-09.md
+    │   ├── captains-log-2005-04-10.md
+    │   ├── captains-log-2005-04-11.md
+    │   ├── captains-log-2005-04-14.md
+    │   └── captains-log-2005-04-16.md
     └── genesis/              # Genesis engineering build logs
         ├── day-01-light-and-darkness.md
         ├── day-02-firmament.md
