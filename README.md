@@ -60,11 +60,11 @@ Captain's Log is a Claude skill — a set of instructions that teaches Claude ho
 
 ### Option 1 — Automated install (macOS/Linux)
 
-===bash
+```bash
 git clone https://github.com/dhk/captains-log
 cd captains-log
 ./install.sh
-===
+```
 
 The install script copies the skill into the Claude skills directory and confirms the path.
 
