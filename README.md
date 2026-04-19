@@ -79,6 +79,10 @@ cd captains-log-repo
 3. Copy `skills/captains-log/SKILL.md` into that folder
 4. Restart Claude Desktop / reload Claude Code
 
+### Stopped working?
+
+If the skill stops responding after a Claude Desktop update, just re-run the install. Claude Desktop stores skills under a session-specific path that can change between updates. Claude Code (`~/.claude/skills/`) is unaffected by this.
+
 ### First run
 
 On first use, Captain's Log will ask two questions:
