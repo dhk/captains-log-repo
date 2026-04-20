@@ -146,7 +146,8 @@ Run `captains log demo` from any Claude session to browse them interactively.
 ```
 captains-log/
 ├── README.md
-├── install.sh
+├── install.sh            # Curl installer — fetches from GitHub
+├── install-local.sh      # Local installer — copies from cloned repo
 ├── skills/
 │   └── captains-log/
 │       └── SKILL.md          # The skill definition
