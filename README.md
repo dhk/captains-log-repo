@@ -81,6 +81,14 @@ Copies the skill from your local clone. Use this if you want to inspect or modif
 3. Copy `skills/captains-log/SKILL.md` into that folder
 4. Restart Claude Desktop / reload Claude Code
 
+### Uninstalling
+
+```bash
+./uninstall.sh
+```
+
+Or manually: delete the `captains-log` folder from your Claude skills directory (see paths above). Your log files are not touched — they live at your configured log location (e.g. `~/Documents/captains-log/`) and are yours to keep.
+
 ### Stopped working?
 
 If the skill stops responding after a Claude Desktop update, just re-run the install. Claude Desktop stores skills under a session-specific path that can change between updates. Claude Code (`~/.claude/skills/`) is unaffected by this.
@@ -148,6 +156,7 @@ captains-log/
 ├── README.md
 ├── install.sh            # Curl installer — fetches from GitHub
 ├── install-local.sh      # Local installer — copies from cloned repo
+├── uninstall.sh          # Removes the skill from Claude skills directory
 ├── skills/
 │   └── captains-log/
 │       └── SKILL.md          # The skill definition
