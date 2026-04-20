@@ -54,21 +54,23 @@ Captain's Log is a Claude skill — a set of instructions that teaches Claude ho
 
 ## How to Install
 
-### One-line install (macOS/Linux)
+### Option A — One-line install (no clone needed)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dhk/captains-log-repo/main/install.sh | bash
 ```
 
-The script detects your Claude skills directory automatically and drops the skill in place. Works with both Claude Desktop and Claude Code.
+Detects your Claude installation, creates any missing directories, and fetches the skill directly from GitHub. Works on a fresh machine with nothing pre-configured.
 
-### Clone and install
+### Option B — Clone and install locally
 
 ```bash
 git clone https://github.com/dhk/captains-log-repo.git
 cd captains-log-repo
-./install.sh
+./install-local.sh
 ```
+
+Copies the skill from your local clone. Use this if you want to inspect or modify the skill before installing, or if you're working offline.
 
 ### Manual install
 
