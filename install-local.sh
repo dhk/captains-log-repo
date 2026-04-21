@@ -24,13 +24,13 @@ fi
 CLAUDE_DESKTOP="$HOME/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin"
 CLAUDE_CODE="$HOME/.claude/skills"
 
-if [ -d "$CLAUDE_DESKTOP" ]; then
+if [ -d "$CLAUDE_CODE" ]; then
+  SKILLS_DIR="$CLAUDE_CODE"
+  echo "→ Claude Code detected."
+elif [ -d "$CLAUDE_DESKTOP" ]; then
   SKILLS_DIR=$(find "$CLAUDE_DESKTOP" -maxdepth 3 -type d -name "skills" 2>/dev/null | head -1)
   [ -z "$SKILLS_DIR" ] && SKILLS_DIR="$CLAUDE_DESKTOP/skills"
   echo "→ Claude Desktop detected."
-elif [ -d "$CLAUDE_CODE" ]; then
-  SKILLS_DIR="$CLAUDE_CODE"
-  echo "→ Claude Code detected."
 else
   SKILLS_DIR="$CLAUDE_CODE"
   echo "→ No Claude installation found. Creating Claude Code skills directory..."

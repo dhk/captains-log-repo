@@ -16,7 +16,10 @@ echo "────────────────────────�
 CLAUDE_DESKTOP="$HOME/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin"
 CLAUDE_CODE="$HOME/.claude/skills"
 
-if [ -d "$CLAUDE_DESKTOP" ]; then
+if [ -d "$CLAUDE_CODE" ]; then
+  SKILLS_DIR="$CLAUDE_CODE"
+  echo "→ Claude Code detected."
+elif [ -d "$CLAUDE_DESKTOP" ]; then
   # Claude Desktop present — find the nested skills/ folder
   SKILLS_DIR=$(find "$CLAUDE_DESKTOP" -maxdepth 3 -type d -name "skills" 2>/dev/null | head -1)
   if [ -z "$SKILLS_DIR" ]; then
@@ -26,9 +29,6 @@ if [ -d "$CLAUDE_DESKTOP" ]; then
   else
     echo "→ Claude Desktop detected."
   fi
-elif [ -d "$CLAUDE_CODE" ]; then
-  SKILLS_DIR="$CLAUDE_CODE"
-  echo "→ Claude Code detected."
 else
   # Nothing found — default to Claude Code location and create it
   SKILLS_DIR="$CLAUDE_CODE"
