@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Captain's Log — local installer
 # Run this after cloning the repo: ./install-local.sh
+# Installs to all detected Claude environments.
 set -e
 
 SKILL_NAME="captains-log"
@@ -19,42 +20,52 @@ if [ ! -f "$LOCAL_SKILL" ]; then
   exit 1
 fi
 
-# ── 2. Locate or create the Claude skills directory ──────────────────────────
-
 CLAUDE_DESKTOP="$HOME/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin"
 CLAUDE_CODE="$HOME/.claude/skills"
 
+INSTALLED=0
+
+# ── Install function ──────────────────────────────────────────────────────────
+
+install_to() {
+  local SKILLS_DIR="$1"
+  local DEST="$SKILLS_DIR/$SKILL_NAME"
+  mkdir -p "$DEST"
+  if [ -f "$DEST/SKILL.md" ]; then
+    echo "  → Updating existing install..."
+    rm -rf "$DEST"
+    mkdir -p "$DEST"
+  fi
+  cp "$LOCAL_SKILL" "$DEST/SKILL.md"
+  echo "  ✓ Installed to: $DEST"
+  INSTALLED=1
+}
+
+# ── Claude Code ───────────────────────────────────────────────────────────────
+
 if [ -d "$CLAUDE_CODE" ]; then
-  SKILLS_DIR="$CLAUDE_CODE"
   echo "→ Claude Code detected."
-elif [ -d "$CLAUDE_DESKTOP" ]; then
-  SKILLS_DIR=$(find "$CLAUDE_DESKTOP" -maxdepth 3 -type d -name "skills" 2>/dev/null | head -1)
-  [ -z "$SKILLS_DIR" ] && SKILLS_DIR="$CLAUDE_DESKTOP/skills"
+  install_to "$CLAUDE_CODE"
+fi
+
+# ── Claude Desktop ────────────────────────────────────────────────────────────
+
+if [ -d "$CLAUDE_DESKTOP" ]; then
+  DESKTOP_SKILLS=$(find "$CLAUDE_DESKTOP" -maxdepth 3 -type d -name "skills" 2>/dev/null | head -1)
+  [ -z "$DESKTOP_SKILLS" ] && DESKTOP_SKILLS="$CLAUDE_DESKTOP/skills"
   echo "→ Claude Desktop detected."
-else
-  SKILLS_DIR="$CLAUDE_CODE"
+  install_to "$DESKTOP_SKILLS"
+fi
+
+# ── Neither found — create Claude Code default ────────────────────────────────
+
+if [ "$INSTALLED" -eq 0 ]; then
   echo "→ No Claude installation found. Creating Claude Code skills directory..."
+  install_to "$CLAUDE_CODE"
 fi
 
-mkdir -p "$SKILLS_DIR"
+# ── Done ──────────────────────────────────────────────────────────────────────
 
-# ── 3. Install ────────────────────────────────────────────────────────────────
-
-DEST="$SKILLS_DIR/$SKILL_NAME"
-
-if [ -d "$DEST" ]; then
-  echo "→ Existing install found. Updating..."
-  rm -rf "$DEST"
-fi
-
-mkdir -p "$DEST"
-cp "$LOCAL_SKILL" "$DEST/SKILL.md"
-
-# ── 4. Done ───────────────────────────────────────────────────────────────────
-
-echo ""
-echo "✓ Captain's Log installed to:"
-echo "  $DEST"
 echo ""
 echo "Restart Claude Desktop or reload Claude Code to activate."
 echo "First use: say 'take a note' or 'captains log demo' to get started."
