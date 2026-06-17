@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Captain's Log — remote installer
 # Designed to be run via: curl -fsSL https://raw.githubusercontent.com/dhk/captains-log-repo/main/install.sh | bash
-# Safe to run on a fresh machine. Installs to all detected Claude environments.
+# Safe to run on a fresh machine. Creates any missing directories.
 set -e
 
 SKILL_NAME="captains-log"
@@ -11,53 +11,53 @@ echo ""
 echo "Captain's Log — installer"
 echo "─────────────────────────"
 
-CLAUDE_DESKTOP="$HOME/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin"
-CLAUDE_CODE="$HOME/.claude/skills"
+# ── 1. Install to Claude Code ─────────────────────────────────────────────────
 
-INSTALLED=0
+DEST="$HOME/.claude/skills/$SKILL_NAME"
 
-# ── Install function ──────────────────────────────────────────────────────────
-
-install_to() {
-  local SKILLS_DIR="$1"
-  local DEST="$SKILLS_DIR/$SKILL_NAME"
-  mkdir -p "$DEST"
-  if [ -d "$DEST" ] && [ -f "$DEST/SKILL.md" ]; then
-    echo "  → Updating existing install..."
-    rm -rf "$DEST"
-    mkdir -p "$DEST"
-  fi
-  curl -fsSL "$REPO_RAW/skills/captains-log/SKILL.md" -o "$DEST/SKILL.md"
-  echo "  ✓ Installed to: $DEST"
-  INSTALLED=1
-}
-
-# ── Claude Code ───────────────────────────────────────────────────────────────
-
-if [ -d "$CLAUDE_CODE" ]; then
-  echo "→ Claude Code detected."
-  install_to "$CLAUDE_CODE"
+if [ -d "$DEST" ]; then
+  echo "→ Existing Claude Code install found. Updating..."
+  rm -rf "$DEST"
 fi
 
-# ── Claude Desktop ────────────────────────────────────────────────────────────
+mkdir -p "$DEST"
+echo "→ Fetching skill from GitHub..."
+curl -fsSL "$REPO_RAW/skills/captains-log/SKILL.md" -o "$DEST/SKILL.md"
+echo "✓ Installed to: $DEST"
 
-if [ -d "$CLAUDE_DESKTOP" ]; then
-  DESKTOP_SKILLS=$(find "$CLAUDE_DESKTOP" -maxdepth 3 -type d -name "skills" 2>/dev/null | head -1)
-  [ -z "$DESKTOP_SKILLS" ] && DESKTOP_SKILLS="$CLAUDE_DESKTOP/skills"
-  echo "→ Claude Desktop detected."
-  install_to "$DESKTOP_SKILLS"
+# Update ~/.claude/CLAUDE.md so the skill loads across all projects
+CLAUDE_MD="$HOME/.claude/CLAUDE.md"
+SKILL_ENTRY="- captains-log (~/.claude/skills/captains-log/) — passive session note-taker. Captures state changes, decisions, and insights. Triggers on commits, \"log this\", \"take a note\", session end, and significant state changes."
+
+if [ ! -f "$CLAUDE_MD" ]; then
+  mkdir -p "$(dirname "$CLAUDE_MD")"
+  cat > "$CLAUDE_MD" <<'EOF'
+# Claude Code Global Config
+
+## Skills
+The following skills are available and should be consulted when relevant:
+- captains-log (~/.claude/skills/captains-log/) — passive session note-taker. Captures state changes, decisions, and insights. Triggers on commits, "log this", "take a note", session end, and significant state changes.
+EOF
+  echo "✓ Created ~/.claude/CLAUDE.md with skill entry."
+elif ! grep -q "captains-log" "$CLAUDE_MD"; then
+  printf '\n## Skills\nThe following skills are available and should be consulted when relevant:\n%s\n' "$SKILL_ENTRY" >> "$CLAUDE_MD"
+  echo "✓ Added captains-log entry to ~/.claude/CLAUDE.md."
+else
+  echo "→ ~/.claude/CLAUDE.md already references captains-log. Skipping."
 fi
 
-# ── Neither found — create Claude Code default ────────────────────────────────
-
-if [ "$INSTALLED" -eq 0 ]; then
-  echo "→ No Claude installation found. Creating Claude Code skills directory..."
-  install_to "$CLAUDE_CODE"
-fi
-
-# ── Done ──────────────────────────────────────────────────────────────────────
+# ── 2. Claude Desktop ─────────────────────────────────────────────────────────
 
 echo ""
-echo "Restart Claude Desktop or reload Claude Code to activate."
+echo "Claude Desktop users:"
+echo "  Skills must be uploaded via the UI — there is no filesystem install path."
+echo "  1. Download captains-log.skill from:"
+echo "     https://github.com/dhk/captains-log-repo/releases/latest"
+echo "  2. In Claude Desktop: Customize → Skills → Upload Skill"
+echo ""
+
+# ── 3. Done ───────────────────────────────────────────────────────────────────
+
+echo "Restart Claude Code or reload your project to activate."
 echo "First use: say 'take a note' or 'captains log demo' to get started."
 echo ""
