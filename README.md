@@ -54,15 +54,17 @@ Captain's Log is a Claude skill — a set of instructions that teaches Claude ho
 
 ## How to Install
 
-### Option A — One-line install (no clone needed)
+### Claude Code
+
+**Option A — One-line install (no clone needed)**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dhk/captains-log-repo/main/install.sh | bash
 ```
 
-Detects your Claude installation, creates any missing directories, and fetches the skill directly from GitHub. Works on a fresh machine with nothing pre-configured.
+Installs the skill to `~/.claude/skills/captains-log/` and adds a reference to `~/.claude/CLAUDE.md` so it loads across all your projects. Works on a fresh machine with nothing pre-configured.
 
-### Option B — Clone and install locally
+**Option B — Clone and install locally**
 
 ```bash
 git clone https://github.com/dhk/captains-log-repo.git
@@ -70,28 +72,35 @@ cd captains-log-repo
 ./install-local.sh
 ```
 
-Copies the skill from your local clone. Use this if you want to inspect or modify the skill before installing, or if you're working offline.
+Same as Option A but copies from your local clone instead of fetching from GitHub. Use this if you want to inspect or modify the skill before installing, or if you're working offline.
 
-### Manual install
+**Manual install**
 
-1. Locate your Claude skills directory:
-   - **Claude Code:** `~/.claude/skills/`
-   - **Claude Desktop (macOS):** `~/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/.../skills/`
-2. Create a folder named `captains-log` inside it
-3. Copy `skills/captains-log/SKILL.md` into that folder
-4. Restart Claude Desktop / reload Claude Code
+1. Copy `skills/captains-log/SKILL.md` to `~/.claude/skills/captains-log/SKILL.md`
+2. Add the following to `~/.claude/CLAUDE.md` (create it if it doesn't exist):
 
-### Uninstalling
+```markdown
+## Skills
+The following skills are available and should be consulted when relevant:
+- captains-log (~/.claude/skills/captains-log/) — passive session note-taker. Captures state changes, decisions, and insights. Triggers on commits, "log this", "take a note", session end, and significant state changes.
+```
+
+### Claude Desktop
+
+Skills are uploaded via the UI — there is no filesystem path to write to.
+
+1. Download [`captains-log.skill`](https://github.com/dhk/captains-log-repo/releases/latest) from the latest release
+2. In Claude Desktop: **Customize → Skills → Upload Skill**
+
+To remove: **Customize → Skills**, then remove Captain's Log from the list.
+
+### Uninstalling (Claude Code)
 
 ```bash
 ./uninstall.sh
 ```
 
-Or manually: delete the `captains-log` folder from your Claude skills directory (see paths above). Your log files are not touched — they live at your configured log location (e.g. `~/Documents/captains-log/`) and are yours to keep.
-
-### Stopped working?
-
-If the skill stops responding after a Claude Desktop update, just re-run the install. Claude Desktop stores skills under a session-specific path that can change between updates. Claude Code (`~/.claude/skills/`) is unaffected by this.
+Or manually: delete `~/.claude/skills/captains-log/`. Your log files are not touched — they live at your configured log location (e.g. `~/Documents/captains-log/`) and are yours to keep.
 
 ### First run
 
@@ -154,9 +163,10 @@ Run `captains log demo` from any Claude session to browse them interactively.
 ```
 captains-log/
 ├── README.md
+├── captains-log.skill    # Pre-built zip for Claude Desktop upload
 ├── install.sh            # Curl installer — fetches from GitHub
 ├── install-local.sh      # Local installer — copies from cloned repo
-├── uninstall.sh          # Removes the skill from Claude skills directory
+├── uninstall.sh          # Removes the skill from Claude Code
 ├── skills/
 │   └── captains-log/
 │       └── SKILL.md          # The skill definition
