@@ -1,0 +1,61 @@
+# Doc Watson enrollment: this repository's documentation contract.
+# Schema: https://github.com/dhk/doc-watson/blob/main/schemas/enrollment.schema.json
+# Level, audience, trigger decisions and exemptions are owner-declared facts.
+# Tools may question them; only the owner changes them.
+# Declared by the owner 2026-09-28 from the baseline audit's drafts.
+
+schema: 1
+standard: 0.3.0 # standard version last audited against
+level: 1 # declared by the owner, 2026-09-28
+audience: Claude Code and Claude Desktop users who install the skill, and the owner.
+
+# One decision per trigger rule, each with its reason.
+triggers:
+  install-guide:
+    applies: true
+    reason: Four supported paths (curl, local clone, manual, Desktop upload) in README.md:55-103; the README section serves as the guide.
+  user-guides:
+    applies: false
+    reason: Commands and first run fit the README (README.md:36-51, :105-117).
+  architecture:
+    applies: false
+    reason: One SKILL.md; the capture flow and day-file structure fit README.md:11-16 and :32-51.
+  adrs:
+    applies: false
+    reason: No decision with real alternatives recorded or pending.
+  agent-memory:
+    applies: false
+    reason: No CLAUDE.md or AGENTS.md; no evidence agents return across sessions.
+  machine-contracts:
+    applies: true
+    reason: Claude Code parses the SKILL.md frontmatter (skills/captains-log/SKILL.md:1-4); Claude Desktop parses captains-log.skill.
+  codeowners:
+    applies: false
+    reason: One owner; .github/CODEOWNERS lists only @dhk.
+  contributing:
+    applies: false
+    reason: Outside contributions are not invited (owner, 2026-09-28).
+  governance:
+    applies: false
+    reason: One maintainer.
+  roadmap:
+    applies: false
+    reason: No stated direction audience; no open issues (GitHub metadata, 2026-09-28).
+  runbooks:
+    applies: false
+    reason: Nothing is hosted; the skill runs inside the user's Claude session.
+  handover:
+    applies: false
+    reason: No other party operates this repository.
+
+# Concerns deliberately not met. Truthfulness, hygiene and duplication, and
+# maintenance and verification cannot be exempted.
+exemptions: []
+
+last_audit:
+  revision: "9708004"
+  date: "2026-09-28"
+  record: https://github.com/dhk/doc-watson-audit/tree/main/audits/dhk/captains-log-repo/2026-09-28
+
+# What a sweep may do on divergence: issue-and-draft-pr, issue, or report.
+on_drift: issue-and-draft-pr
