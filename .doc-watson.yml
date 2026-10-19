@@ -39,8 +39,8 @@ triggers:
     applies: false
     reason: One maintainer.
   roadmap:
-    applies: false
-    reason: No stated direction audience; no open issues (GitHub metadata, 2026-09-28).
+    applies: true
+    reason: Public repository that invites contributions; direction belongs in a ROADMAP.md, which does not exist yet (owner, 2026-10-19).
   runbooks:
     applies: false
     reason: Nothing is hosted; the skill runs inside the user's Claude session.
